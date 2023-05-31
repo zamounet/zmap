@@ -102,8 +102,7 @@ public void ExtractCallback(bool success, const char[] command, System2ExecuteOu
 		DeleteFile(mapPath);
 		
 		PrintToChatAll("[ZMAP] %s extraction has failed.", download.mapName);
-
-		return
+		return;
 	}
 
 	PrintToChatAll("[ZMAP] %s has been installed", download.mapName);
@@ -126,10 +125,6 @@ public void DownloadCallback(bool success, const char[] error, System2HTTPReques
 		PrintToChat(download.issuer, "[ZMAP] %s could not be located.", download.mapName)
 		DeleteFile(outputPath);
 	} else {
-		char md5[PLATFORM_MAX_PATH];
-		bool hoho = System2_GetFileMD5(outputPath, md5, sizeof(md5));
-		PrintToServer("%s %s", hoho ? "success" : "false", md5);
-
 		PrintToChat(download.issuer, "[ZMAP] Installing %s....", download.mapName)
 		System2_Extract(ExtractCallback, outputPath, "maps/", request.Any);
 	}
